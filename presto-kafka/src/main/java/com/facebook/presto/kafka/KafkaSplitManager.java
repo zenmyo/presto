@@ -27,7 +27,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import io.airlift.log.Logger;
 import kafka.api.PartitionOffsetRequestInfo;
-import kafka.cluster.Broker;
+import kafka.cluster.BrokerEndPoint;
 import kafka.common.TopicAndPartition;
 import kafka.javaapi.OffsetRequest;
 import kafka.javaapi.OffsetResponse;
@@ -88,7 +88,7 @@ public class KafkaSplitManager
             for (PartitionMetadata part : metadata.partitionsMetadata()) {
                 log.debug("Adding Partition %s/%s", metadata.topic(), part.partitionId());
 
-                Broker leader = part.leader();
+                BrokerEndPoint leader = part.leader();
                 if (leader == null) { // Leader election going on...
                     log.warn("No leader for partition %s/%s found!", metadata.topic(), part.partitionId());
                     continue;
